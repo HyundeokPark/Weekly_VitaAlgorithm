@@ -10,13 +10,16 @@ public class march_1 {
 		String answer = "";
 		String input = br.readLine(); //줄의 갯수 입력 받음!!
 		
+		int empty_count = 0;
+		
 		String[] sentence = new String[Integer.parseInt(input)]; //줄의 갯수만큼 한줄씩 받아드릴 배열 생성
-
+		String[] m_sentence = new String[sentence.length]; //모음만 모아둘 배열
+		
 		for(int i =0; i <Integer.parseInt(input); i++){ // 한줄씩 배열에 넣기
            sentence[i] = br.readLine();
 		}
 		
-		for(int i=0; i<sentence.length; i++) {
+		for(int i=0; i<sentence.length; i++) {//단어를 다시 글자단위로 쪼개서 word배열에 저장, 그리고 모음일 경우에만 sentence배열에 재저장
 			String[] word = sentence[i].split("");
 			for(int j=0; j< word.length; j++) {
 				if(word[j].equals("a") ||word[j].equals("A") || word[j].equals("e")||word[j].equals("E") ||
@@ -25,13 +28,26 @@ public class march_1 {
 					answer = answer + word[j];					
 				} 
 			}
-			if(!answer.isEmpty())
-			answer = answer +"\n";
+			m_sentence[i] = answer;
+			answer = "";
 		}
-		bw.write(answer);
-		if(answer.isEmpty()) {
+		
+		for(int i=0; i<m_sentence.length; i++) {
+			if(m_sentence[i].isEmpty()) {
+				empty_count++;
+			}
+			else if(i<m_sentence.length-1){
+				bw.write(m_sentence[i]+"\n");
+			}
+			else {
+				bw.write(m_sentence[i]);
+			}
+			
+		}
+		if(empty_count == m_sentence.length) {
 			bw.write("???");
 		}
+		
 		bw.flush();
 	}
 }
