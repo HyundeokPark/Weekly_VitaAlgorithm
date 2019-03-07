@@ -28,15 +28,18 @@ public class march_1 {
 					answer = answer + word[j];					
 				} 
 			}
-			m_sentence[i] = answer;
-			answer = "";
+			if(answer.isEmpty()) { //글자가 없다면 ???을 대신 저장한다.
+				m_sentence[i] = "???";
+				empty_count++;
+			}
+			else { //모음이 있다면 그 모음을 배열에 저장
+				m_sentence[i] = answer;
+			}
+			answer = ""; //한문장을 지나고 난 후에는 초기화 해주지 않으면, 전문장과 계속 합쳐짐!
 		}
 		
 		for(int i=0; i<m_sentence.length; i++) {
-			if(m_sentence[i].isEmpty()) {
-				empty_count++;
-			}
-			else if(i<m_sentence.length-1){
+			if((i<m_sentence.length-1)) {
 				bw.write(m_sentence[i]+"\n");
 			}
 			else {
@@ -44,9 +47,9 @@ public class march_1 {
 			}
 			
 		}
-		if(empty_count == m_sentence.length) {
+		/*if(empty_count == m_sentence.length) {
 			bw.write("???");
-		}
+		}*/
 		
 		bw.flush();
 	}
